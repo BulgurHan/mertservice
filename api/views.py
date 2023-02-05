@@ -67,7 +67,10 @@ class LoginView(views.APIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         login(request, user)
-        return Response(None, status=status.HTTP_202_ACCEPTED)
+        return Response({"username":user.username,
+                         'first_name':user.first_name,
+                         'last_name':user.last_name,
+                         'email':user.email}, status=status.HTTP_202_ACCEPTED)
     
 
 class ProfileView(generics.RetrieveAPIView):
